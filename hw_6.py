@@ -13,7 +13,8 @@ def binary_search(input_data_list, num):
     elif num < input_data_list[index_num_in_the_middle]:
         return binary_search(input_data_list[0:index_num_in_the_middle], num)
     else:
-        return binary_search(input_data_list[index_num_in_the_middle + 1:], num) + index_num_in_the_middle + 1
+        return (binary_search(input_data_list[index_num_in_the_middle + 1:], num)
+                + index_num_in_the_middle + 1)
 
 
 print(f"Индекс искомого элемента = {binary_search(list_of_numbers, num_for_search)}")
