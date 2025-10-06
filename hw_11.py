@@ -104,12 +104,17 @@ class MyTime:
     использовать класс для расчёта длительности
     """
     def _normalize(self):
-        if self.seconds > 60:
-            self.minutes += self.seconds // 60
-            self.seconds = self.seconds % 60
-        if self.minutes > 60:
-            self.hours += self.minutes // 60
-            self.minutes = self.minutes % 60
+       # Переводим все в секунды
+        total_seconds = self.hours * 3600 + self.minutes * 60 + self.seconds
+
+        # Обрабатываем отрицательные значения
+        if total_seconds < 0:
+            total_seconds = 0
+
+        # Нормализуем время (остаток от деления на 24 часа)
+        self.hours = (total_seconds // 3600) % 24
+        self.minutes = (total_seconds % 3600) // 60
+        self.seconds = total_seconds % 60
 
     def __repr__(self):
         return f'{self.hours:02}:{self.minutes:02}:{self.seconds:02}'
