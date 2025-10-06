@@ -116,7 +116,7 @@ class MyTime:
         self.minutes = (total_seconds % 3600) // 60
         self.seconds = total_seconds % 60
 
-    def __repr__(self):
+    def __str__(self):
         return f'{self.hours:02}:{self.minutes:02}:{self.seconds:02}'
 
     """
