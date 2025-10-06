@@ -5,6 +5,7 @@
 разворот(изменение знака скорости). Все атрибуты приватные.
 """
 
+
 class Car:
 
     def __init__(self, brand, model, year_of_production, speed=0):
@@ -32,6 +33,7 @@ class Car:
     def turn(self):
         self.__speed = -self.__speed
 
+
 car_1 = Car(brand='Toyota', model='Supra', year_of_production='2007')
 car_2 = Car(brand='Toyota', model='Celica', year_of_production='2000')
 
@@ -56,6 +58,7 @@ car_2.display_speed()
 другой объект класса MyTime, и отсутствие входных параметров. Реализовать
 нормальное отображение времени(12:65:83 - 13:06:23)
 """
+
 
 class MyTime:
 
@@ -99,12 +102,13 @@ class MyTime:
             raise ValueError("Некорректное количество входных параметров")
 
         self._normalize()
+
     """
-    здесь нет контроля часов > 24 и отрицательного времени, т.к. можно
+    здесь нет контроля часов > 24, т.к. можно
     использовать класс для расчёта длительности
     """
     def _normalize(self):
-       # Переводим все в секунды
+        # Переводим все в секунды
         total_seconds = self.hours * 3600 + self.minutes * 60 + self.seconds
 
         # Обрабатываем отрицательные значения
@@ -201,35 +205,35 @@ class MyTime:
         return MyTime(h, m, s)
 
 
-time_0 = MyTime('12:45:58') # строка + корректное время
+time_0 = MyTime('12:45:58')  # строка + корректное время
 print(time_0)
-#time_0error = MyTime('12:45') # строка + ValueError
-time_1 = MyTime('25:61:61') # строка + каждая часть больше нормы
+# time_0error = MyTime('12:45')  # строка + ValueError
+time_1 = MyTime('25:61:61')  # строка + каждая часть больше нормы
 print(time_1)
-time_3 = MyTime() # значения по умолчанию
+time_3 = MyTime()  # значения по умолчанию
 print(time_3)
-time_4 = MyTime(time_1) # подаем класс на вход
+time_4 = MyTime(time_1)  # подаем класс на вход
 print(time_4)
-#time_5 = MyTime(123) # ValueError
-#time_6 = MyTime(1, 1, 12, 12) # ValueError (кол-во входных параметров)
+# time_5 = MyTime(123)  # ValueError
+# time_6 = MyTime(1, 1, 12, 12)  # ValueError (кол-во входных параметров)
 
 time_7 = MyTime('12:45:58')
 time_8 = MyTime('13:45:58')
-print(time_7 == time_8) # >> False, because different hours
+print(time_7 == time_8)  # >> False, because different hours
 time_9 = MyTime('12:59:58')
-print(time_9 == time_7) # >> True, because equal hours
-print(time_7 != time_8) # >> True, because different hours
-print(time_9 != time_7) # >> False, because equal hours
-print(time_9 < time_7) # >> False, because equal hours
-print(time_7 < time_8) # >> True, because 7 < 8
-print(time_9 > time_7) # >> False, because equal hours
-print(time_8 > time_7) # >> True, because 8 > 7
-print(time_9 <= time_7) # >> True, because equal hours
-print(time_7 <= time_8) # >> True, because 7 < 8
-print(time_8 <= time_7) # >> False, because 7 < 8
-print(time_9 >= time_7) # >> True, because equal hours
-print(time_8 >= time_7) # >> True, because 8 > 7
-print(time_7 >= time_8) # >> False, because 8 > 7
+print(time_9 == time_7)  # >> True, because equal hours
+print(time_7 != time_8)  # >> True, because different hours
+print(time_9 != time_7)  # >> False, because equal hours
+print(time_9 < time_7)  # >> False, because equal hours
+print(time_7 < time_8)  # >> True, because 7 < 8
+print(time_9 > time_7)  # >> False, because equal hours
+print(time_8 > time_7)  # >> True, because 8 > 7
+print(time_9 <= time_7)  # >> True, because equal hours
+print(time_7 <= time_8)  # >> True, because 7 < 8
+print(time_8 <= time_7)  # >> False, because 7 < 8
+print(time_9 >= time_7)  # >> True, because equal hours
+print(time_8 >= time_7)  # >> True, because 8 > 7
+print(time_7 >= time_8)  # >> False, because 8 > 7
 time_10 = MyTime('3:33:33')
 time_11 = MyTime('2:22:22')
 print(time_10 + time_11)
@@ -252,6 +256,7 @@ print(time_10 / time_11)
 палиндромом.
 """
 
+
 class SuperStr(str):
 
     def is_repeatance(self, s):
@@ -270,17 +275,18 @@ class SuperStr(str):
         else:
             return False
 
+
 text = SuperStr.is_palindrom('asdsa')
-print(text) # палиндром >> True
+print(text)  # палиндром >> True
 text = SuperStr.is_palindrom('asds')
-print(text) # не палиндром >> False
+print(text)  # не палиндром >> False
 text = ''
-print(SuperStr.is_repeatance(text, '')) # пустая строка >> False
+print(SuperStr.is_repeatance(text, ''))  # пустая строка >> False
 text = 'ab'
-print(SuperStr.is_repeatance(text, 'abc')) # >> False
+print(SuperStr.is_repeatance(text, 'abc'))  # >> False
 text = 'abab'
-print(SuperStr.is_repeatance(text, 'ab')) # >> True
+print(SuperStr.is_repeatance(text, 'ab'))  # >> True
 text = 'aba'
-print(SuperStr.is_repeatance(text, 'abc')) # >> False
+print(SuperStr.is_repeatance(text, 'abc'))  # >> False
 text = 'aba'
-print(SuperStr.is_repeatance(text, 'aba')) # >> True
+print(SuperStr.is_repeatance(text, 'aba'))  # >> True
