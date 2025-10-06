@@ -1,6 +1,6 @@
 # 1.
 def body_mass_index():
-    print(f'Калькулятор индекса массы тела приветствует вас')
+    print('Калькулятор индекса массы тела приветствует вас')
 
     while True:
         try:
@@ -17,7 +17,7 @@ def body_mass_index():
                 break
 
         except KeyboardInterrupt:
-            print(f'Возникла предвиденная ошибка - KeyboardInterrupt')
+            print('Возникла предвиденная ошибка - KeyboardInterrupt')
             break
         except ValueError as e:
             print(f'Возникла предвиденная ошибка - ValueError ({e}).')
@@ -53,15 +53,16 @@ def body_mass_index():
                   f'на ноль, произойдет математический абсурд.')
             break
 
+
 body_mass_index()
 
 
 # 2.
 def my_calc():
-    print(f'Калькулятор (игра сломай программу) приветствует вас!\n'
-          f'- на вход принимаю число, операцию, число и выдаю ответ\n'
-          f'- допустимые операции: +, -, *, /, **\n'
-          f'- для выхода введите "exit".')
+    print('Калькулятор (игра сломай программу) приветствует вас!\n'
+          '- на вход принимаю число, операцию, число и выдаю ответ\n'
+          '- допустимые операции: +, -, *, /, **\n'
+          '- для выхода введите "exit".')
     try:
         while True:
             num_1 = input('Введите число 1\n')
@@ -95,7 +96,7 @@ def my_calc():
 
             print('--------------------------')
     except KeyboardInterrupt:
-        print(f'Возникла предвиденная ошибка - KeyboardInterrupt')
+        print('Возникла предвиденная ошибка - KeyboardInterrupt')
     except ZeroDivisionError as e:
         print(f'Возникла предвиденная ошибка - ZeroDivisionError ({e}). '
               f'Кто-то пытался делить на ноль.')
@@ -103,4 +104,6 @@ def my_calc():
         print(f'Возникла предвиденная ошибка - ValueError ({e}).')
 
     return None
+
+
 my_calc()
