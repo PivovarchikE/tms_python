@@ -1,24 +1,23 @@
 from classes import Book, Library
-from exceptions_my import NotStrException, NotIntException
+from exceptions_my import (InvalidPagesValueError, InvalidAuthorValueError,
+                           InvalidValue, EmptyLibraryException, AuthorNotFound)
+
 
 # create book class
-a = Book(500, 1954, "Yanka Lucina", "Homeland", 176)
-b = Book(400, 1924, "Aloiza Pashkevich", "Belarusian violin", 17)
-c = Book(600, 1923, "Yanka Kupala", "Zhaleika", 295)
-d = Book(299, 1926, "Yanka Kupala", "Guslar", 295)
+a = Book(500, 1954, "Yanka Lucina", "Homeland", 176.00)
+b = Book(400, 1924, "Aloiza Pashkevich", "Belarusian violin", 17.00)
+c = Book(600, 1923, "Yanka Kupala", "Zhaleika", 295.00)
+d = Book(299, 1926, "Yanka Kupala", "Guslar", 295.00)
 print('--------------------')
-try:
-    e = Book("299", 1926, "Yanka Kupala", "Guslar", 295)
-except NotIntException as er:
-    print('1', er)
-except NotStrException as er:
-    print(er)
 
 try:
-    f = Book(299, 1926, 123, 123, 295)
-except NotIntException as er:
-    print(er)
-except NotStrException as er:
+    e = Book("299", 1926, "Yanka Kupala", "Guslar", 295.00)
+except InvalidPagesValueError as er:
+    print('1', er)
+
+try:
+    f = Book(299, 1926, 123, "123", 295.00)
+except InvalidAuthorValueError as er:
     print('2', er)
 
 
@@ -38,22 +37,30 @@ print('--------------------')
 
 # library class
 lib = Library()
-print('12', lib.get_book_info('Yanka Kupala'))
+try:
+    print('12', lib.get_book_info('Yanka Kupala'))
+except EmptyLibraryException as e:
+    print(e)
 lib.add_book(a)
-print('13', lib.library)
+print('13', lib.books)
 lib.add_book(b)
 lib.add_book(c)
 lib.add_book(d)
-print('14', lib.library)
+print('14', lib.books)
 print('--------------------')
 # тест метода получения инфо о книгах с поиском по автору
-print('15', lib.get_book_info(''))
-print('16', lib.get_book_info('yap'))
-print('17', lib.get_book_info(['yap', 'nam']))
-print('18', lib.get_book_info('Yanka Kupala'))
-print('19', lib.get_book_info(['Yanka Kupala', "Aloiza Pashkevich"]))
+try:
+    print('15', lib.get_book_info(''))
+except InvalidValue:
+    print('Подано пустое значение')
+try:
+    print('16', lib.get_book_info('yap'))
+except AuthorNotFound as e:
+    print(e)
+print('17', lib.get_book_info('Yanka Kupala'))
+print('18', lib.get_book_info(['Yanka Kupala', "Aloiza Pashkevich"]))
 # способ вывода через for
-print('20')
+print('19')
 for book in lib.get_book_info(['Yanka Lucina', "Aloiza Pashkevich"]):
     print(book.book_id, book)
 print('--------------------')
