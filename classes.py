@@ -1,5 +1,9 @@
 from dataclasses import dataclass
-from exceptions_my import NotStrException, NotIntException
+from exceptions_my import (InvalidPagesValueError, InvalidYearValueError,
+                           InvalidAuthorValueError, InvalidNameValueError,
+                           InvalidPriceValueError, InvalidValue,
+                           EmptyLibraryException, AuthorNotFound)
+
 
 """
 Библиотека:
@@ -33,24 +37,24 @@ class Book:
     year: int
     author: str
     name: str
-    price: int
+    price: float
     book_id: int = None
 
     def __post_init__(self):
         if not isinstance(self.pages, int):
-            raise NotIntException(self.pages)
+            raise InvalidPagesValueError(self.pages)
 
         if not isinstance(self.year, int):
-            raise NotIntException(self.year)
+            raise InvalidYearValueError(self.year)
 
         if not isinstance(self.author, str):
-            raise NotStrException(self.author)
+            raise InvalidAuthorValueError(self.author)
 
         if not isinstance(self.name, str):
-            raise NotStrException(self.name)
+            raise InvalidNameValueError(self.name)
 
-        if not isinstance(self.price, int):
-            raise NotIntException(self.price)
+        if not isinstance(self.price, float):
+            raise InvalidPriceValueError(self.price)
 
     def __str__(self):
         return (f'{self.author}, {self.name}, {self.year} year, '
@@ -83,27 +87,25 @@ class Library:
     def add_book(self, book):
         book.book_id = self.next_id
         self.next_id += 1
-        self.library.append(book)
+        self.books[book.book_id] = book
 
-    def get_book_info(self, book_id):
-        if isinstance(authors, str):
-            author = [authors]
-        elif isinstance(authors, list):
-            author = authors
-        else:
-            raise TypeError("Поиск осуществляется по строке или списку")
+    def get_book_info(self, authors):
+        if not isinstance(authors, (str, list)):
+            raise TypeError(
+                "Аргумент authors должен быть строкой или списком строк")
 
-        if not self.library:
-            return 'Библиотека пуста'
+        if not self.books:
+            raise EmptyLibraryException
 
         if not authors:
-            return 'Подано пустое значение'
+            raise InvalidValue
 
-        result = [book for book in self.library if book.author in authors]
+        result = [book for book in self.books.values()
+                  if book.author in authors]
         if not result:
-            return f"Книга c автором (-и) {author} не найдена"
+            raise AuthorNotFound
         else:
             return result
 
     def __str__(self):
-        return '\n'.join(str(book) for book in self.library)
+        return '\n'.join(str(book) for book in self.books)
