@@ -85,7 +85,7 @@ class Library:
         self.next_id += 1
         self.library.append(book)
 
-    def get_book_info(self, authors):
+    def get_book_info(self, book_id):
         if isinstance(authors, str):
             author = [authors]
         elif isinstance(authors, list):
