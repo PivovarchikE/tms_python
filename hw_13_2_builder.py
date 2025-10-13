@@ -1,5 +1,4 @@
 from __future__ import annotations
-from abc import ABC, abstractmethod
 from typing import Any
 
 
@@ -17,58 +16,32 @@ PizzaBuilder и содержит метод make_pizza, который
 """
 
 
-class Pizza(ABC):
-    @property
-    @abstractmethod
-    def pizza(self) -> None:
-        pass
-
-    @abstractmethod
-    def size(self, value) -> None:
-        pass
-
-    @abstractmethod
-    def cheese(self) -> None:
-        pass
-
-    @abstractmethod
-    def pepperoni(self) -> None:
-        pass
-
-    @abstractmethod
-    def mushrooms(self) -> None:
-        pass
-
-    @abstractmethod
-    def onions(self) -> None:
-        pass
-
-    @abstractmethod
-    def bacon(self) -> None:
-        pass
-
-
-class PizzaBuilder(Pizza):
+class PizzaBuilder:
     def __init__(self):
-        self.pizza = Pizza()
+        self.pizza = Pizza1()
 
     def size(self, value) -> None:
-        self._pizza.add(f'Size {value}')
+        self.pizza.add(f'Size {value}')
 
     def cheese(self) -> None:
-        self._pizza.add("Cheese")
+        self.pizza.add("Cheese")
 
     def pepperoni(self) -> None:
-        self._pizza.add("Pepperoni")
+        self.pizza.add("Pepperoni")
 
     def mushrooms(self) -> None:
-        self._pizza.add("Mushrooms")
+        self.pizza.add("Mushrooms")
 
     def onions(self) -> None:
-        self._pizza.add("Onions")
+        self.pizza.add("Onions")
 
     def bacon(self) -> None:
-        self._pizza.add("Onions")
+        self.pizza.add("Bacon")
+
+    def build(self) -> Pizza1:
+        pizza = self.pizza
+        self.pizza = Pizza1()
+        return pizza
 
 
 class Pizza1:
@@ -90,31 +63,30 @@ class PizzaDirector:
         if ingredients is None:
             ingredients = []
 
-        self.builder.set_size(size)
+        self.builder.size(size)
 
         for ingredient in ingredients:
             if ingredient == "cheese":
-                self.builder.add_cheese()
+                self.builder.cheese()
             elif ingredient == "pepperoni":
-                self.builder.add_pepperoni()
+                self.builder.pepperoni()
             elif ingredient == "mushrooms":
-                self.builder.add_mushrooms()
+                self.builder.mushrooms()
             elif ingredient == "onions":
-                self.builder.add_onions()
+                self.builder.onions()
             elif ingredient == "bacon":
-                self.builder.add_bacon()
+                self.builder.bacon()
 
         return self.builder.build()
 
 
-director = PizzaDirector()
 builder = PizzaBuilder()
-director.pizza_builder = builder
+director = PizzaDirector(builder)
 
 print("The most delicious pizza: ")
-director.build_pizza_1()
-builder.pizza.list_parts()
+pizza1 = director.make_pizza("Large", ["cheese", "pepperoni", "mushrooms"])
+pizza1.list_parts()
 
 print("The pizza isn't that tasty: ")
-director.build_pizza_2()
-builder.pizza.list_parts()
+pizza2 = director.make_pizza("Small", ["cheese"])
+pizza2.list_parts()
