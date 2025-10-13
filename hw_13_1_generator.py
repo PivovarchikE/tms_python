@@ -7,29 +7,10 @@
 """
 
 
-def my_gen(start: int, end: int, step: int) -> int:
-    if step <= 0:
-        raise ValueError('Step could be > 0')
-
-    temp = start
-
-    if end >= start:
-        while True:
-            if temp <= end:
-                yield temp
-                temp += step
-            else:
-                temp = start
-    else:
-        while True:
-            if temp >= end:
-                yield temp
-                temp -= step
-            else:
-                temp = start
-start_in, end_in, step_in = (int(input('Enter the initial value\n')),
-                             int(input('Enter the final value\n')),
-                             int(input('Enter the step value\n')))
+def my_gen(nums) -> int:
+    while True:
+        for i in nums:
+            yield i
 
 
 a = my_gen(start_in, end_in, step_in)
