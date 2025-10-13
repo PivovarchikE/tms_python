@@ -49,17 +49,8 @@ class Pizza(ABC):
 
 
 class PizzaBuilder(Pizza):
-    def __init__(self) -> None:
-        self.reset()
-
-    def reset(self) -> None:
-        self._pizza = Pizza1()
-
-    @property
-    def pizza(self) -> Pizza1:
-        pizza = self._pizza
-        self.reset()
-        return pizza
+    def __init__(self):
+        self.pizza = Pizza()
 
     def size(self, value) -> None:
         self._pizza.add(f'Size {value}')
