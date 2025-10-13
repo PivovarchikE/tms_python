@@ -92,16 +92,8 @@ class Pizza1:
 
 
 class PizzaDirector:
-    def __init__(self) -> None:
-        self._pizza_builder = None
-
-    @property
-    def pizza_builder(self) -> PizzaBuilder:
-        return self._pizza_builder
-
-    @pizza_builder.setter
-    def pizza_builder(self, pizza_builder: PizzaBuilder) -> None:
-        self._pizza_builder = pizza_builder
+    def __init__(self, builder):
+        self.builder = builder
 
     def make_pizza(self, size="средняя", ingredients=None):
         if ingredients is None:
