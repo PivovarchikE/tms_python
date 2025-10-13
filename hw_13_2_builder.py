@@ -103,19 +103,25 @@ class PizzaDirector:
     def pizza_builder(self, pizza_builder: PizzaBuilder) -> None:
         self._pizza_builder = pizza_builder
 
-    def build_pizza_1(self) -> None:
-        self.pizza_builder.size('Large')
-        self.pizza_builder.cheese()
-        self.pizza_builder.pepperoni()
-        self.pizza_builder.mushrooms()
-        self.pizza_builder.onions()
-        self.pizza_builder.bacon()
+    def make_pizza(self, size="средняя", ingredients=None):
+        if ingredients is None:
+            ingredients = []
 
-    def build_pizza_2(self) -> None:
-        self.pizza_builder.size('Small')
-        self.pizza_builder.cheese()
-        self.pizza_builder.pepperoni()
-        self.pizza_builder.bacon()
+        self.builder.set_size(size)
+
+        for ingredient in ingredients:
+            if ingredient == "cheese":
+                self.builder.add_cheese()
+            elif ingredient == "pepperoni":
+                self.builder.add_pepperoni()
+            elif ingredient == "mushrooms":
+                self.builder.add_mushrooms()
+            elif ingredient == "onions":
+                self.builder.add_onions()
+            elif ingredient == "bacon":
+                self.builder.add_bacon()
+
+        return self.builder.build()
 
 
 director = PizzaDirector()
