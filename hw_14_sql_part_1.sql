@@ -25,7 +25,7 @@ P.S. реализовал немного с другими условиями в
 */
 
 CREATE TABLE employees (
-	id INT GENERATED ALWAYS AS identity (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name VARCHAR(30) NOT NULL,
 	position VARCHAR(50) NOT NULL,
 	department VARCHAR(50) NOT NULL,
