@@ -1,6 +1,7 @@
 from classes import Book, Library
 from exceptions_my import (InvalidPagesValueError, InvalidAuthorValueError,
-                           InvalidValue, EmptyLibraryException, AuthorNotFound)
+                           InvalidValue, EmptyLibraryException, AuthorNotFound,
+                           InvalidBookId)
 
 
 # create book class
@@ -38,7 +39,7 @@ print('--------------------')
 # library class
 lib = Library()
 try:
-    print('12', lib.get_book_info('Yanka Kupala'))
+    print('12', lib.get_books('Yanka Kupala'))
 except EmptyLibraryException as e:
     print(e)
 lib.add_book(a)
@@ -47,21 +48,29 @@ lib.add_book(b)
 lib.add_book(c)
 lib.add_book(d)
 print('14', lib.books)
+# тест метода получения инфо о книге по ID
+print('--------------------')
+print('14_1', lib.get_book_info(1))
+#print('14_2', lib.get_book_info(1, 2))
+try:
+    print('14_3', lib.get_book_info('1'))
+except InvalidBookId as e:
+    print(e)
 print('--------------------')
 # тест метода получения инфо о книгах с поиском по автору
 try:
-    print('15', lib.get_book_info(''))
+    print('15', lib.get_books(''))
 except InvalidValue:
     print('Подано пустое значение')
 try:
-    print('16', lib.get_book_info('yap'))
+    print('16', lib.get_books('yap'))
 except AuthorNotFound as e:
     print(e)
-print('17', lib.get_book_info('Yanka Kupala'))
-print('18', lib.get_book_info(['Yanka Kupala', "Aloiza Pashkevich"]))
+print('17', lib.get_books('Yanka Kupala'))
+print('18', lib.get_books(['Yanka Kupala', "Aloiza Pashkevich"]))
 # способ вывода через for
 print('19')
-for book in lib.get_book_info(['Yanka Lucina', "Aloiza Pashkevich"]):
+for book in lib.get_books(['Yanka Lucina', "Aloiza Pashkevich"]):
     print(book.book_id, book)
 print('--------------------')
-print(lib.get_book_info(1))
+print(lib.get_books(1))
