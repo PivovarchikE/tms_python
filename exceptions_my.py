@@ -46,3 +46,13 @@ class EmptyLibraryException(Exception):
 class AuthorNotFound(Exception):
     def __init__(self, message="Книга с таким автором не найдена"):
         super().__init__(message)
+
+
+class InvalidBookId(Exception):
+    def __init__(self, message="Id must be integer"):
+        super().__init__(message)
+
+
+class BookIdNotFound(Exception):
+    def __init__(self, message="A book with this ID was not found"):
+        super().__init__(message)
