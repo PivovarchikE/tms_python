@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from exceptions_my import (InvalidPagesValueError, InvalidYearValueError,
                            InvalidAuthorValueError, InvalidNameValueError,
                            InvalidPriceValueError, InvalidValue,
-                           EmptyLibraryException, AuthorNotFound)
+                           EmptyLibraryException, AuthorNotFound,
+                           InvalidBookId, BookIdNotFound)
 
 
 """
@@ -89,7 +90,7 @@ class Library:
         self.next_id += 1
         self.books[book.book_id] = book
 
-    def get_book_info(self, authors):
+    def get_books(self, authors):
         if not isinstance(authors, (str, list)):
             raise TypeError(
                 "Аргумент authors должен быть строкой или списком строк")
@@ -104,6 +105,28 @@ class Library:
                   if book.author in authors]
         if not result:
             raise AuthorNotFound
+        else:
+            return result
+
+    def get_book_info(self, book_id):
+        if isinstance(book_id, (list, tuple, set, dict)):
+            raise InvalidBookId('ID must be int, not collection')
+
+        if not isinstance(book_id, int):
+            raise InvalidBookId
+
+        if not self.books:
+            raise EmptyLibraryException
+
+        if not book_id:
+            raise InvalidValue
+
+
+
+        result = [book for book in self.books.values()
+                  if book.book_id == book_id]
+        if not result:
+            raise BookIdNotFound
         else:
             return result
 
