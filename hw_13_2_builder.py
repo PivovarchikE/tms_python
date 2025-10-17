@@ -1,5 +1,4 @@
 from __future__ import annotations
-from typing import Any
 
 
 """
@@ -16,46 +15,79 @@ PizzaBuilder и содержит метод make_pizza, который
 """
 
 
-class PizzaBuilder:
+class Pizza:
+    """Класс пиццы - продукт, который мы создаем"""
+
     def __init__(self):
-        self.pizza = Pizza1()
+        self.size = None
+        self.cheese = False
+        self.pepperoni = False
+        self.mushrooms = False
+        self.onions = False
+        self.bacon = False
 
-    def size(self, value) -> None:
-        self.pizza.add(f'Size {value}')
+    def __str__(self):
+        ingredients = []
+        if self.cheese:
+            ingredients.append("сыр")
+        if self.pepperoni:
+            ingredients.append("пепперони")
+        if self.mushrooms:
+            ingredients.append("грибы")
+        if self.onions:
+            ingredients.append("лук")
+        if self.bacon:
+            ingredients.append("бекон")
 
-    def cheese(self) -> None:
-        self.pizza.add("Cheese")
-
-    def pepperoni(self) -> None:
-        self.pizza.add("Pepperoni")
-
-    def mushrooms(self) -> None:
-        self.pizza.add("Mushrooms")
-
-    def onions(self) -> None:
-        self.pizza.add("Onions")
-
-    def bacon(self) -> None:
-        self.pizza.add("Bacon")
-
-    def build(self) -> Pizza1:
-        pizza = self.pizza
-        self.pizza = Pizza1()
-        return pizza
+        ingredients_str = ", ".join(ingredients) if ingredients \
+            else "без добавок"
+        return f"Пицца {self.size} с {ingredients_str}"
 
 
-class Pizza1:
-    def __init__(self) -> None:
-        self.parts = []
+class PizzaBuilder:
+    """Строитель пиццы - создает пиццу пошагово"""
 
-    def add(self, part: Any) -> None:
-        self.parts.append(part)
+    def __init__(self):
+        self.pizza = Pizza()
 
-    def list_parts(self) -> None:
-        print(f"Pizza size and ingredients: {', '.join(self.parts)}", end="\n")
+    def set_size(self, size):
+        """Устанавливает размер пиццы"""
+        self.pizza.size = size
+        return self
+
+    def add_cheese(self):
+        """Добавляет сыр"""
+        self.pizza.cheese = True
+        return self
+
+    def add_pepperoni(self):
+        """Добавляет пепперони"""
+        self.pizza.pepperoni = True
+        return self
+
+    def add_mushrooms(self):
+        """Добавляет грибы"""
+        self.pizza.mushrooms = True
+        return self
+
+    def add_onions(self):
+        """Добавляет лук"""
+        self.pizza.onions = True
+        return self
+
+    def add_bacon(self):
+        """Добавляет бекон"""
+        self.pizza.bacon = True
+        return self
+
+    def build(self):
+        """Возвращает готовую пиццу"""
+        return self.pizza
 
 
 class PizzaDirector:
+    """Директор - использует строитель для создания пиццы"""
+
     def __init__(self, builder):
         self.builder = builder
 
@@ -63,30 +95,40 @@ class PizzaDirector:
         if ingredients is None:
             ingredients = []
 
-        self.builder.size(size)
+        self.builder.set_size(size)
 
         for ingredient in ingredients:
             if ingredient == "cheese":
-                self.builder.cheese()
+                self.builder.add_cheese()
             elif ingredient == "pepperoni":
-                self.builder.pepperoni()
+                self.builder.add_pepperoni()
             elif ingredient == "mushrooms":
-                self.builder.mushrooms()
+                self.builder.add_mushrooms()
             elif ingredient == "onions":
-                self.builder.onions()
+                self.builder.add_onions()
             elif ingredient == "bacon":
-                self.builder.bacon()
+                self.builder.add_bacon()
 
         return self.builder.build()
 
 
-builder = PizzaBuilder()
-director = PizzaDirector(builder)
+if __name__ == "__main__":
+    builder = PizzaBuilder()
 
-print("The most delicious pizza: ")
-pizza1 = director.make_pizza("Large", ["cheese", "pepperoni", "mushrooms"])
-pizza1.list_parts()
+    director = PizzaDirector(builder)
 
-print("The pizza isn't that tasty: ")
-pizza2 = director.make_pizza("Small", ["cheese"])
-pizza2.list_parts()
+    pizza1 = director.make_pizza("большая",
+                                 ["cheese", "pepperoni", "mushrooms"])
+    print(f"Пицца 1: {pizza1}")
+
+    pizza2 = director.make_pizza("маленькая", ["cheese", "bacon"])
+    print(f"Пицца 2: {pizza2}")
+
+    builder2 = PizzaBuilder()
+    pizza3 = (builder2
+              .set_size("средняя")
+              .add_cheese()
+              .add_onions()
+              .add_bacon()
+              .build())
+    print(f"Пицца 3: {pizza3}")
