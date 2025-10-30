@@ -1,9 +1,15 @@
 import psycopg
 import config
 from providers.data_provider import DataProvider
-from db_logic.raw_sql_queries import (CREATE_TABLE_QUERIES, INSERT_AUTHOR,
-    INSERT_BOOK, INSERT_GENRE, INSERT_BOOK_GENRE, SELECT_BOOK_BY_GENRE,
-                                      SELECT_BOOK_BY_AUTHOR_AND_YEAR)
+from db_logic.raw_sql_queries import (
+    CREATE_TABLE_QUERIES,
+    INSERT_AUTHOR,
+    INSERT_BOOK,
+    INSERT_GENRE,
+    INSERT_BOOK_GENRE,
+    SELECT_BOOK_BY_GENRE,
+    SELECT_BOOK_BY_AUTHOR_AND_YEAR
+                                      )
 
 
 class RawSqlProvider(DataProvider):
@@ -64,7 +70,6 @@ class RawSqlProvider(DataProvider):
         with RawSqlProvider.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute(SELECT_BOOK_BY_GENRE, (f'%{genre_name}%',))
-                books = cur.fetchall()
                 return cur.fetchall()
 
     @staticmethod

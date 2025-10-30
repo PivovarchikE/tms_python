@@ -52,8 +52,8 @@ INSET_TABLE_QUERIES = [INSERT_AUTHOR, INSERT_GENRE, INSERT_BOOK,
 SELECT_BOOK_BY_GENRE = """
 SELECT b.title
 FROM books b
-JOIN book_genres bj ON b.book_id=bj,book_id
-JOIN genre g ON g.genre_id=bj.genre_id
+JOIN book_genres bj ON b.book_id=bj.book_id
+JOIN genres g ON g.genre_id=bj.genre_id
 WHERE g.genre_name ILIKE %s;
 """
 
@@ -61,7 +61,6 @@ SELECT_BOOK_BY_AUTHOR_AND_YEAR = """
 SELECT b.title, a.author_name, b.publication_year
 FROM books b
 JOIN authors a ON a.author_id=b.author_id
-AND
 WHERE a.author_name ILIKE %s
 AND b.publication_year=%s
 ORDER BY b.publication_year;

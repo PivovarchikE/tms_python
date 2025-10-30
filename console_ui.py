@@ -1,9 +1,6 @@
 import sys
 
-from sqlalchemy.sql.operators import in_op
-
 from providers.data_provider import DataProvider
-
 
 ACTION_ITEMS = """
 Choose action item from list:
@@ -24,8 +21,11 @@ class ConsoleDbApp:
         self.orm_data_provider = orm_data_provider
 
     def start_app(self):
-        choose = int(input('Choose data provider for initialization: 1 - raw 2 - orm'))
-        self.data_provider = self.raw_data_provider if choose == 1 else self.orm_data_provider
+        choose = int(
+            input('Choose data provider for initialization: 1 - raw 2 - orm '))
+        self.data_provider = (
+            self.raw_data_provider if choose == 1 else self.orm_data_provider
+                              )
 
         print('Starting ConsoleApp ...')
         self.data_provider.create_tables()
@@ -39,28 +39,39 @@ class ConsoleDbApp:
                     author_id = self.data_provider.add_author(author_name)
                     print(f"Author added, id: {author_id}")
                 case 2:
-                    title, publication_year, author_id = input('Enter title, publication year, author_id ').split(', ')
-                    book_id = self.data_provider.add_book(title, publication_year, author_id)
-                    print(f"Book added, id: {book_id}")
+                    title, publication_year, author_id = input(
+                        'Enter title, publication year, author_id ').split(
+                        ', ')
+                    author_id = self.data_provider.add_book(title,
+                                                            publication_year,
+                                                            author_id)
+                    print(f"Book added, id: {author_id}")
                 case 3:
                     genre_name = input('Enter genre name: ')
                     genre_id = self.data_provider.add_genre(genre_name)
                     print(f"Genre added, id: {genre_id}")
                 case 4:
-                    book_id, genre_id = input('Enter book_id, genre_id: ').split(', ')
-                    book_id, genre_id = self.data_provider.add_book_genre(book_id, genre_id)
-                    print(f"Book with id: {book_id} linked to genre with id: {genre_id}")
+                    book_id, genre_id = input(
+                        'Enter book_id and genre_id: ').split(', ')
+                    book_id, genre_id = self.data_provider.add_book_genre(
+                        book_id, genre_id)
+                    print(
+                        f"Book with id: {book_id} linked to genre with id: {genre_id}")
                 case 5:
                     genre = input('Enter book genre: ')
-                    books = self.data_provider.get_books_by_genre(genre)
-                    if books:
-                        for book in books:
-                            print(f"Book title: {book[0]}")
+                    book_titles = self.data_provider.get_books_by_genre(genre)
+
+                    if book_titles:
+                        for title in book_titles:
+                            print(f"Book title: {title}")
                     else:
                         print('Books not found')
                 case 6:
-                    author, publication_year = input('Enter book author and publication_year: ')
-                    books = self.data_provider.get_books_by_author_and_year(author, publication_year).split(', ')
+                    author, publication_year = input(
+                        'Enter book author and publication_year: ').split(', ')
+                    books = self.data_provider.get_books_by_author_and_year(
+                        author, publication_year)
+
                     if books:
                         for book in books:
                             print(f"{book[0], book[1], book[2]}")
