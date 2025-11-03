@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <H1>All surveys: </H1>
+    {% for survey in all_surveys %}
+        {% if survey[1] != 'second survey' %}
+        <p>{{ survey[1] }}</p>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
