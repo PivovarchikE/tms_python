@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS votes (
     id SERIAL PRIMARY KEY,
     survey_id INT NOT NULL,
     user_id INT,
-    voter_id VARCHAR(50),
+    voter_ip VARCHAR(50),
     created_at TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (survey_id) REFERENCES surveys(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS votes (
     UNIQUE (survey_id, voter_id)
 );
 
-CREATE TABLE IF NOT EXISTS votes_options (
+CREATE TABLE IF NOT EXISTS vote_options (
     id SERIAL PRIMARY KEY,
     vote_id INT NOT NULL,
     option_id INT NOT NULL,
