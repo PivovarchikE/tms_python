@@ -7,16 +7,15 @@
 
 </head>
 <body>
-
     <nav>
-        <a href="{{ url_for('index') }}">All Surveys</a>
-        <a href="{{ url_for('create_survey') }}">Create Survey</a>
+        <a href="{{ url_for('survey.index') }}">All Surveys</a>
 
         {% if session.get('loggedin') %}
-            <a href="{{ url_for('logout') }}">LogOut</a>
+            <a href="{{ url_for('survey.create_survey') }}">Create Survey</a>
+            <a href="{{ url_for('auth.logout') }}">LogOut</a>
             Hello, {{ session.user_name }}
         {% else %}
-            <a href="{{ url_for('login') }}">LogIn</a>
+            <a href="{{ url_for('auth.login') }}">LogIn</a>
         {% endif %}
     </nav>
 

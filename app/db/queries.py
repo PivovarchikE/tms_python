@@ -1,11 +1,12 @@
 ALL_SURVEYS = """SELECT * FROM surveys ORDER BY id"""
 
-GET_SURVEY = """
-SELECT s.id, s.title, s.description, s.created_by, s.created_at, s.is_anonymous, u.user_name
-FROM surveys as s
-LEFT JOIN users as u on u.id = s.created_by
-WHERE s.id = %s;
-"""
+GET_SURVEY = (
+    "SELECT s.id, s.title, s.description, s.created_by, s.created_at, "
+    "s.is_anonymous, u.user_name "
+    "FROM surveys AS s "
+    "LEFT JOIN users AS u ON u.id = s.created_by "
+    "WHERE s.id = %s;"
+)
 
 GET_OPTIONS_FOR_SURVEY = """
 SELECT id, description

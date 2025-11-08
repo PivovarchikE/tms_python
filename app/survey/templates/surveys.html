@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <H1>All surveys: </H1>
+    {% for survey in all_surveys %}
+        <li>
+            {{loop.index}}
+            <strong><a href="{{url_for('survey.get_survey', survey_id=survey.id)}}">{{ survey.title }}</a></strong>
+            <br>
+            {{ survey.description }}
+
+            {%if session.user_id == survey.created_by%}
+            <form action="{{ url_for('survey.delete_survey', survey_id=survey.id) }}" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+            </form>
+            <br>
+        {% endif %}
+        </li>
+        <br>
+    {% endfor %}
+{% endblock %}
